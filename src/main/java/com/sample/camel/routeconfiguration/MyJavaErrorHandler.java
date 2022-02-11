@@ -10,7 +10,11 @@ public class MyJavaErrorHandler extends RouteConfigurationBuilder {
     @Override
     public void configuration() throws Exception {
         routeConfiguration("javaError")
-            .onException(Exception.class).handled(true)
+            .onException(UnsupportedOperationException.class).handled(true)
             .log("Java WARN: ${exception.message}");
+
+        routeConfiguration("javaError2")
+            .onException(IllegalArgumentException.class).handled(true)
+            .log("Java 2 WARN: ${exception.message}");
     }
 }

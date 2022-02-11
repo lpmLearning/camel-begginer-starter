@@ -10,9 +10,12 @@ public class MyJavaRouteBuilder extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
+//        onException(IllegalArgumentException.class).handled(true)
+//            .log("Java WARN from CONSUMER: ${exception.message}");
+
         from("timer:java?period=2s")
             // refer to the route configuration by the id to use for this route
-            .routeConfigurationId("javaError")
+            .routeConfigurationId("javaError,javaError2,reportError")
             .setBody(method(MyJavaRouteBuilder.class, "randomNumber"))
             .log("Random number ${body}")
             .filter(simple("${body} < 30"))
